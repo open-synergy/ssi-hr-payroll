@@ -1,0 +1,22 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payslip_type_employee,hr.payslip_type - user,model_hr_payslip_type,hr_payslip_type_configurator_group,1,1,1,1
+access_hr_payslip_type_all,hr.payslip_type - all,model_hr_payslip_type,,1,0,0,0
+access_hr_payslip_input_type_employee,hr.payslip_input_type - user,model_hr_payslip_input_type,hr_payslip_input_type_configurator_group,1,1,1,1
+access_hr_payslip_input_type_all,hr.payslip_input_type - all,model_hr_payslip_input_type,,1,0,0,0
+access_hr_salary_contribution_employee,hr.salary_contribution - user,model_hr_salary_contribution,hr_salary_contribution_configurator_group,1,1,1,1
+access_hr_salary_contribution_all,hr.salary_contribution - all,model_hr_salary_contribution,,1,0,0,0
+access_hr_salary_rule_category_employee,hr.salary_rule_category - user,model_hr_salary_rule_category,hr_salary_rule_category_configurator_group,1,1,1,1
+access_hr_salary_rule_category_all,hr.salary_rule_category - all,model_hr_salary_rule_category,,1,0,0,0
+access_hr_salary_rule_employee,hr.salary_rule - user,model_hr_salary_rule,hr_salary_rule_configurator_group,1,1,1,1
+access_hr_salary_rule_all,hr.salary_rule - all,model_hr_salary_rule,,1,0,0,0
+access_hr_salary_structure_employee,hr.salary_structure - user,model_hr_salary_structure,hr_salary_structure_configurator_group,1,1,1,1
+access_hr_salary_structure_all,hr.salary_structure - all,model_hr_salary_structure,,1,0,0,0
+access_hr_payslip_user,hr.payslip - user,model_hr_payslip,hr_payslip_user_group,1,1,1,1
+access_hr_payslip_viewer,hr.payslip - viewer,model_hr_payslip,hr_payslip_viewer_group,1,0,0,0
+access_hr_payslip_all,hr.payslip - all,model_hr_payslip,,1,0,0,0
+access_hr_payslip_line_user,hr.payslip_line - user,model_hr_payslip_line,hr_payslip_user_group,1,1,1,1
+access_hr_payslip_line_viewer,hr.payslip_line - viewer,model_hr_payslip_line,hr_payslip_viewer_group,1,0,0,0
+access_hr_payslip_line_all,hr.payslip_line - all,model_hr_payslip_line,,1,0,0,0
+access_hr_payslip_input_user,hr.payslip_input - user,model_hr_payslip_input,hr_payslip_user_group,1,1,1,1
+access_hr_payslip_input_viewer,hr.payslip_input - viewer,model_hr_payslip_input,hr_payslip_viewer_group,1,0,0,0
+access_hr_payslip_input_all,hr.payslip_input - all,model_hr_payslip_input,,1,0,0,0

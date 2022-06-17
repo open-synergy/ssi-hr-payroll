@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+
+    <record id="hr_salary_rule_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.rule.search</field>
+        <field name="model">hr.salary_rule</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="parent_id" />
+                    <field name="category_id" />
+                    <field name="debit_account_id" />
+                    <field name="credit_account_id" />
+                    <field name="contribution_id" />
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter
+                        name="grp_parent_id"
+                        string="Parent"
+                        context="{'group_by':'parent_id'}"
+                    />
+                    <filter
+                        name="grp_category_id"
+                        string="Category"
+                        context="{'group_by':'category_id'}"
+                    />
+                    <filter
+                        name="grp_debit_account_id"
+                        string="Debit Account"
+                        context="{'group_by':'debit_account_id'}"
+                    />
+                    <filter
+                        name="grp_credit_account_id"
+                        string="Credit Account"
+                        context="{'group_by':'credit_account_id'}"
+                    />
+                    <filter
+                        name="grp_contribution_id"
+                        string="Salary Contribution"
+                        context="{'group_by':'contribution_id'}"
+                    />
+                    <filter
+                        name="dom_appear_on_payslip"
+                        string="Appear On Payslip"
+                        domain="[('appear_on_payslip','=', True)]"
+                    />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_view_tree" model="ir.ui.view">
+        <field name="name">hr.salary.rule.tree</field>
+        <field name="model">hr.salary_rule</field>
+        <field name="priority">100</field>
+        <field name="field_parent">child_ids</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="category_id" widget="badge" />
+                    <field name="sequence" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='code']" position="replace">
+                    <field name="code" decoration-bf="1" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form</field>
+        <field name="model">hr.salary_rule</field>
+        <field name="priority">100</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//group[@name='group_1']" position="replace">
+                    <group colspan="4" col="2">
+                        <group name="group_1" colspan="1" col="2">
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="sequence" />
+                            <field name="active" widget="boolean_toggle" />
+                        </group>
+                        <group name="grp_salary_rule_header" colspan="1" col="2">
+                            <field name="parent_id" />
+                            <field name="category_id" />
+                            <field name="appear_on_payslip" widget="boolean_toggle" />
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='note']" position="before">
+                    <page name="page_general" string="General">
+                        <group
+                            string="Conditions"
+                            name="grp_general_condition"
+                            colspan="4"
+                            cols="2"
+                        >
+                            <field
+                                name="condition_python"
+                                widget="ace"
+                                options="{'mode': 'python'}"
+                                id="condition_python"
+                            />
+                        </group>
+                        <group
+                            string="Computation"
+                            name="grp_general_computation"
+                            colspan="4"
+                            cols="2"
+                        >
+                            <field
+                                name="amount_python"
+                                widget="ace"
+                                options="{'mode': 'python'}"
+                                id="amount_python"
+                            />
+                        </group>
+                        <group
+                            string="Company Contribution"
+                            name="grp_general_contribution"
+                            colspan="4"
+                            cols="2"
+                        >
+                            <field name="contribution_id" />
+                        </group>
+                    </page>
+                    <page name="page_salary_rule_accounting" string="Accounting">
+                        <group name="grp_salary_rule_accounting" colspan="4" cols="2">
+                            <field name="debit_account_id" />
+                            <field name="credit_account_id" />
+                        </group>
+                    </page>
+                    <page name="page_salary_rule_input_type" string="Input Types">
+                        <group name="grp_salary_rule_condition" colspan="4" cols="2">
+                            <field name="input_type_ids" nolabel="1" />
+                        </group>
+                    </page>
+                    <page name="page_salary_rule_child" string="Children">
+                        <group name="grp_salary_rule_chiled" colspan="4" cols="2">
+                            <field name="child_ids" nolabel="1" />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_action" model="ir.actions.act_window">
+        <field name="name">Salary Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.salary_rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="hr_salary_rule_menu"
+        name="Salary Rules"
+        parent="hr_payroll_configuration_menu"
+        groups="hr_salary_rule_configurator_group"
+        action="hr_salary_rule_action"
+        sequence="5"
+    />
+
+</odoo>

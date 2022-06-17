@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+
+    <record id="hr_salary_rule_category_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.rule.category.search</field>
+        <field name="model">hr.salary_rule_category</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="parent_id" />
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter
+                        name="grp_parent_id"
+                        string="Parent"
+                        context="{'group_by':'parent_id'}"
+                    />
+                    <searchpanel>
+                        <field
+                            name="parent_id"
+                            select="multi"
+                            string="Parent"
+                            icon="fa-filter"
+                            color="#875A7B"
+                            enable_counters="1"
+                        />
+                    </searchpanel>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_category_view_tree" model="ir.ui.view">
+        <field name="name">hr.salary.rule.category.tree</field>
+        <field name="model">hr.salary_rule_category</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='id']" position="before">
+                    <field name="parent_id" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_category_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.category.form</field>
+        <field name="model">hr.salary_rule_category</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="parent_id" />
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="page_salary_rule_category" string="Childs">
+                        <group name="grp_salary_rule_category" colspan="4" cols="2">
+                            <field name="child_ids" nolabel="1" />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_category_action" model="ir.actions.act_window">
+        <field name="name">Salary Rule Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.salary_rule_category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="hr_salary_rule_category_menu"
+        name="Salary Rule Categories"
+        parent="hr_payroll_configuration_menu"
+        groups="hr_salary_rule_category_configurator_group"
+        action="hr_salary_rule_category_action"
+        sequence="4"
+    />
+
+</odoo>
