@@ -10,7 +10,6 @@
     "installable": True,
     "depends": [
         "ssi_hr",
-        "ssi_financial_accounting",
         "ssi_master_data_mixin",
         "ssi_transaction_confirm_mixin",
         "ssi_transaction_done_mixin",
