@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="hr_payslip_view_search" model="ir.ui.view">
+    <field name="name">hr.payslip.search</field>
+    <field name="model">hr.payslip</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="type_id" />
+                <field name="structure_id" />
+                <field name="journal_id" />
+                <field name="move_id" />
+                <field name="date" />
+                <field name="date_start" />
+                <field name="date_end" />
+            </xpath>
+            <xpath expr="//group[@name='group_by']" position="inside">
+                <filter
+                        name="grp_type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                <filter
+                        name="grp_structure"
+                        string="Salary Structure"
+                        context="{'group_by':'structure_id'}"
+                    />
+                <filter
+                        name="grp_journal"
+                        string="Journal"
+                        context="{'group_by':'journal_id'}"
+                    />
+                <filter
+                        name="grp_move"
+                        string="Move"
+                        context="{'group_by':'move_id'}"
+                    />
+                <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
+                <filter
+                        name="grp_date_start"
+                        string="Date Start"
+                        context="{'group_by':'date_start'}"
+                    />
+                <filter
+                        name="grp_date_end"
+                        string="Date End"
+                        context="{'group_by':'date_end'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="hr_payslip_view_tree" model="ir.ui.view">
+    <field name="name">hr.payslip.tree</field>
+    <field name="model">hr.payslip</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="employee_id" />
+                <field name="department_id" optional="hide" />
+                <field name="manager_id" optional="hide" />
+                <field name="job_id" optional="hide" />
+                <field name="type_id" />
+                <field name="structure_id" />
+                <field name="journal_id" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="date" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="hr_payslip_view_form" model="ir.ui.view">
+    <field name="name">hr.payslip.form</field>
+    <field name="model">hr.payslip</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//button[@name='action_restart']" position="before">
+                <button
+                        name="action_compute_payslip"
+                        string="Compute Payslip"
+                        type="object"
+                        confirm="Compute Payslip. Are you sure?"
+                        order="1"
+                        class="oe_highlight"
+                        attrs="{'invisible':[('state','not in', ('draft', 'confirm'))]}"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='header_left']" position="inside">
+                <field name="employee_id" />
+                <field name="department_id" />
+                <field name="manager_id" />
+                <field name="job_id" />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="date" />
+                <field name="type_id" />
+                <field name="structure_id" />
+                <field name="journal_id" />
+            </xpath>
+            <xpath expr="//notebook/page[@name='note']" position="before">
+                <page name="page_detail" string="Details">
+                    <field name="line_ids" colspan="4" nolabel="1" />
+                </page>
+                <page name="page_input_lines" string="Input Lines">
+                    <field name="input_line_ids" colspan="4" nolabel="1" />
+                </page>
+                <page name="page_accounting" string="Accountings">
+                    <group name="grp_accounting" colspan="4" cols="2">
+                        <field name="move_id" />
+                        <field name="move_line_debit_id" />
+                        <field name="move_line_credit_id" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="hr_payslip_action" model="ir.actions.act_window">
+    <field name="name">Payslip</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">hr.payslip</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="hr_payslip_menu"
+        name="Payslips"
+        parent="hr_payroll_root_menu"
+        action="hr_payslip_action"
+        groups="hr_payslip_viewer_group"
+        sequence="1"
+    />
+
+</odoo>

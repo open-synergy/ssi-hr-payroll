@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="hr_payslip_input_view_tree" model="ir.ui.view">
+          <field name="name">hr.payslip.input.tree</field>
+          <field name="model">hr.payslip_input</field>
+          <field name="arch" type="xml">
+              <tree string="Details" editable="bottom">
+                    <field name="input_type_id" />
+                    <field name="amount" />
+              </tree>
+          </field>
+    </record>
+</odoo>

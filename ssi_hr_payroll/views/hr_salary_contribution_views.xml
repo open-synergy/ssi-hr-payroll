@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+
+    <record id="hr_salary_contribution_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.contribution.search</field>
+        <field name="model">hr.salary_contribution</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="partner_id" />
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter
+                        name="grp_partner_id"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_contribution_view_tree" model="ir.ui.view">
+        <field name="name">hr.salary.contribution.tree</field>
+        <field name="model">hr.salary_contribution</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="hr_salary_contribution_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.contribution.form</field>
+        <field name="model">hr.salary_contribution</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="partner_id" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_salary_contribution_action" model="ir.actions.act_window">
+        <field name="name">Salary Contributions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.salary_contribution</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="hr_salary_contribution_menu"
+        name="Salary Contributions"
+        parent="hr_payroll_configuration_menu"
+        groups="hr_salary_contribution_configurator_group"
+        action="hr_salary_contribution_action"
+        sequence="3"
+    />
+
+</odoo>
